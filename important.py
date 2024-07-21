@@ -1,0 +1,1 @@
+the values used within this file are converted in a variety of ways. I wanted to document what changes happen when data is stored, so people can manipulate the information stored for their own purposes!  
