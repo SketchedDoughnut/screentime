@@ -60,11 +60,15 @@ class Screentime:
 
         # set up flags
         self.first_start = False
+        
+        # set up dictionaries
+        self.day_log = {}
 
         # set up paths
         self.wDir = os.path.dirname(os.path.abspath(__file__))
         self.screentime_path = f'{self.wDir}/screentime-local'
         self.data_path = f'{self.screentime_path}/data.json'
+        self.day_log_path = f'{self.screentime_path}/day_log.json'
 
         # start / load directories
         self.startup_directories()
@@ -97,6 +101,12 @@ class Screentime:
         if not os.path.exists(self.data_path):
             self.first_start = True
 
+        # make sure day_log.json exists
+        if not os.path.exists(self.day_log_path):
+            f = open(self.day_log_path, 'w')
+            json.dump(self.day_log, f)
+            f.close()
+
 
     def startup_data(self):
         if self.first_start:
@@ -117,6 +127,7 @@ class Screentime:
             'start epoch day': start_epoch_day,
             'start date (y/m/d)(h/m/s)': start_date,
             'current epoch day': self.epoch_days,
+            'current date (y/m/d)(h/m/s)': str(self.current_date),
             'current day': self.current_day,
             'current month': self.current_month,
             'current weekday': self.current_weekday,
@@ -202,6 +213,22 @@ class Screentime:
                 self.refresh_date(True)
                 self.refresh_date()
                 self.save_timekeeper()
+                f = open(self.day_log_path, 'r')
+                self.day_log = json.load(f)
+                f.close()
+                day_log_key = str(self.runtime_date)
+                self.day_log[day_log_key] = {
+                    'seconds': self.tracked_seconds - self.sync_seconds,
+                    'minutes': self.tracked_minutes,
+                    'hours': self.tracked_hours,
+                    'days': self.tracked_hours,
+                    'weeks': self.tracked_weeks,
+                    'months': self.tracked_months,
+                    'years': self.tracked_years
+                }
+                f = open(self.day_log_path, 'w')
+                json.dump(self.day_log, f)
+                f.close()
 
 
             # save time data to dictionary
