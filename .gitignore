@@ -162,4 +162,4 @@ cython_debug/
 #.idea/
 
 # my own additions
-screentime-local/
+screentime-local
