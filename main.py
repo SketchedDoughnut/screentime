@@ -52,6 +52,7 @@ class Screentime:
         self.tracked_years = 0
         self.days_sum = 0
         self.seconds_sum = 0
+        self.sync_seconds = self.tracked_seconds
 
         # set up interval counters
         self.minute_interval_counter = 0
@@ -194,6 +195,7 @@ class Screentime:
                 self.seconds_sum += ((self.tracked_hours * 60) * 60)
                 self.seconds_sum += (self.tracked_minutes * 60)
                 self.seconds_sum += self.tracked_seconds
+                self.seconds_sum -= self.sync_seconds
                 self.refresh_date(True)
                 self.refresh_date()
                 self.save_timekeeper()
