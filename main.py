@@ -46,6 +46,7 @@ class Screentime:
         self.tracked_weeks = 0
         self.tracked_months = 0
         self.tracked_years = 0
+        self.days_sum = 0
 
         # set up interval counters
         self.minute_interval_counter = 0
@@ -59,10 +60,8 @@ class Screentime:
         self.screentime_path = f'{self.wDir}/screentime-local'
         self.data_path = f'{self.screentime_path}/data.json'
 
-        # get date info # https://stackoverflow.com/questions/9847213/how-do-i-get-the-day-of-week-given-a-date
-        self.current_date = datetime.datetime.today()
-        self.current_weekday = self.current_date.weekday()
-        self.current_month = self.current_date.month
+        self.refresh_date(True) # load current date
+        self.refresh_date() # load runtime date
 
         # start / load directories
         self.startup_directories()
@@ -118,12 +117,25 @@ class Screentime:
             'minutes': self.tracked_minutes, 
             'hours': self.tracked_hours,
             'days': self.tracked_days,
+            'day sum': self.days_sum,
             'weeks': self.tracked_weeks,
             'months': self.tracked_months,
             'years': self.tracked_years
         }
         if filedump:
             self.dump_timekeeper()
+
+
+    def refresh_date(self, current: bool = False):
+        # get date info # https://stackoverflow.com/questions/9847213/how-do-i-get-the-day-of-week-given-a-date
+        if current == False:
+            self.runtime_date = datetime.datetime.today()
+            self.runtime_weekday = self.runtime_date.weekday()
+            self.runtime_month = self.runtime_date.month
+        else:
+            self.current_date = datetime.datetime.today()
+            self.current_weekday = self.current_date.weekday()
+            self.current_month = self.current_date.month
 
 
     def refresh_epoch(self):
@@ -164,6 +176,17 @@ class Screentime:
             if self.minute_interval_counter >= BASE10_OVERFLOW:
                 self.save_timekeeper()
                 self.minute_interval_counter = 0
+
+            # any day specific cases
+            self.refresh_epoch()
+            if self.epoch_days != self.timekeeper['current epoch day']:
+                self.days_sum += self.tracked_hours
+                self.days_sum += (self.tracked_minutes / 60)
+                self.days_sum += ((self.tracked_seconds / 60) / 60)
+                self.refresh_date(True)
+                self.refresh_date()
+                self.save_timekeeper()
+
 
             # save time data to dictionary
             self.save_timekeeper(False)
