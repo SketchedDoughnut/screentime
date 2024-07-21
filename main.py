@@ -51,6 +51,7 @@ class Screentime:
         self.tracked_months = 0
         self.tracked_years = 0
         self.days_sum = 0
+        self.seconds_sum = 0
 
         # set up interval counters
         self.minute_interval_counter = 0
@@ -112,13 +113,15 @@ class Screentime:
         self.timekeeper = {
             'start epoch day': start_epoch_day,
             'current epoch day': self.epoch_days,
+            'current day': self.current_day,
             'current month': self.current_month,
             'current weekday': self.current_weekday,
             'seconds': self.tracked_seconds,
             'minutes': self.tracked_minutes, 
             'hours': self.tracked_hours,
             'days': self.tracked_days,
-            'day sum': self.days_sum,
+            'day sum (hour)': self.days_sum,
+            'day sum (second)': self.seconds_sum,
             'weeks': self.tracked_weeks,
             'months': self.tracked_months,
             'years': self.tracked_years
@@ -133,10 +136,12 @@ class Screentime:
             self.runtime_date = datetime.datetime.today()
             self.runtime_weekday = self.runtime_date.weekday()
             self.runtime_month = self.runtime_date.month
+            self.runtime_day = self.runtime_date.day
         else:
             self.current_date = datetime.datetime.today()
             self.current_weekday = self.current_date.weekday()
             self.current_month = self.current_date.month
+            self.current_day = self.current_date.day 
 
 
     def refresh_epoch(self):
@@ -180,10 +185,15 @@ class Screentime:
 
             # any day specific cases
             self.refresh_epoch()
-            if round(self.epoch_days) != round(self.timekeeper['current epoch day']):
+            if round(self.runtime_day) != round(self.timekeeper['current day']):
+                self.days_sum = self.timekeeper['day sum (hour)']
                 self.days_sum += self.tracked_hours
                 self.days_sum += (self.tracked_minutes / 60)
                 self.days_sum += ((self.tracked_seconds / 60) / 60)
+                self.seconds_sum = self.timekeeper['day sum (second)']
+                self.seconds_sum += ((self.tracked_hours * 60) * 60)
+                self.seconds_sum += (self.tracked_minutes * 60)
+                self.seconds_sum += self.tracked_seconds
                 self.refresh_date(True)
                 self.refresh_date()
                 self.save_timekeeper()
