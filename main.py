@@ -109,10 +109,13 @@ class Screentime:
     def save_timekeeper(self, filedump: bool = True, set_start_epoch = None):
         if set_start_epoch == None:
             start_epoch_day = self.timekeeper['start epoch day'] # we want to preserve the start epoch day
+            start_date = self.timekeeper['start date (y/m/d)(h/m/s)']
         else:
             start_epoch_day = set_start_epoch
+            start_date = str(datetime.datetime.today())
         self.timekeeper = {
             'start epoch day': start_epoch_day,
+            'start date (y/m/d)(h/m/s)': start_date,
             'current epoch day': self.epoch_days,
             'current day': self.current_day,
             'current month': self.current_month,
