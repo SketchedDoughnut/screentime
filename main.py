@@ -74,6 +74,18 @@ class Screentime:
         self.demise()
 
 
+    def load_timekeeper(self):
+        f = open(self.data_path, 'r')
+        self.timekeeper = json.load(f)
+        f.close()
+
+    
+    def dump_timekeeper(self):
+        f = open(self.data_path, 'w')
+        json.dump(self.timekeeper, f)
+        f.close()
+        
+    
     def startup_directories(self):
         # make sure screentime-local exists
         if not os.path.exists(self.screentime_path):
@@ -87,13 +99,9 @@ class Screentime:
     def startup_data(self):
         if self.first_start:
             self.save_timekeeper(False, self.epoch_days)
-            f = open(self.data_path, 'w')
-            json.dump(self.timekeeper, f)
-            f.close()
+            self.dump_timekeeper()
         else:
-            f = open(self.data_path, 'r')
-            self.timekeeper = json.load(f)
-            f.close()
+            self.load_timekeeper()
 
 
     def save_timekeeper(self, filedump: bool = True, set_start_epoch = None):
@@ -115,9 +123,7 @@ class Screentime:
             'years': self.tracked_years
         }
         if filedump:
-            f = open(self.data_path, 'w')
-            json.dump(self.timekeeper, f)
-            f.close()
+            self.dump_timekeeper()
 
 
     def refresh_epoch(self):
