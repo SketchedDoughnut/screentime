@@ -11,7 +11,7 @@ import json
 from constants import *
 
 '''
-So, here is a rundown on how this works
+So, here is a rundown on how this works (THIS IS NOW OUT OF DATE OH NO)
 
 On start:
     - dumps epoch day as "start epoch day"
