@@ -37,9 +37,13 @@ class Screentime:
          # get all epoch times
         self.refresh_epoch()
 
+        # refresh date info
+        self.refresh_date(True) # load current date
+        self.refresh_date() # load runtime date
+
         # set up all tracked times
         # tracked times represent the current information being documented
-        self.tracked_seconds = 0
+        self.tracked_seconds = self.runtime_date.second
         self.tracked_minutes = 0
         self.tracked_hours = 0
         self.tracked_days = 0
@@ -59,9 +63,6 @@ class Screentime:
         self.wDir = os.path.dirname(os.path.abspath(__file__))
         self.screentime_path = f'{self.wDir}/screentime-local'
         self.data_path = f'{self.screentime_path}/data.json'
-
-        self.refresh_date(True) # load current date
-        self.refresh_date() # load runtime date
 
         # start / load directories
         self.startup_directories()
@@ -179,7 +180,7 @@ class Screentime:
 
             # any day specific cases
             self.refresh_epoch()
-            if self.epoch_days != self.timekeeper['current epoch day']:
+            if round(self.epoch_days) != round(self.timekeeper['current epoch day']):
                 self.days_sum += self.tracked_hours
                 self.days_sum += (self.tracked_minutes / 60)
                 self.days_sum += ((self.tracked_seconds / 60) / 60)
