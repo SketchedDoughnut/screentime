@@ -24,3 +24,7 @@ SEPTEMBER = 'september'
 OCTOBER = 'october'
 NOVEMBER = 'november'
 DECEMBER = 'december'
+
+# in the new new reform
+DATA_FOLDERPATH = 'screentime-local'
+DATA_FILEPATH = f'{DATA_FOLDERPATH}/data.json'
