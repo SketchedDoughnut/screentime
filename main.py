@@ -3,7 +3,7 @@ import time
 import datetime
 import os
 import json
-import sys
+from sys import exit
 
 from constants import *
 
@@ -92,9 +92,12 @@ class Screentime:
                 if self.debug:
                     if 1 != self.remembrance[CURRENT_WEEKDAY]: 
                         self.save_daykeeper()
-                        sys.exit()
+                        exit()
                 else: 
                     if datetime.datetime.weekday(datetime.datetime.now()) != self.remembrance[CURRENT_WEEKDAY]: self.save_daykeeper()
+                if os.path.exists(EXIT_FILEPATH):
+                    os.remove(EXIT_FILEPATH)
+                    raise KeyboardInterrupt
                 self.remembrance[TRACKED_SECONDS] += 1
                 if self.remembrance[TRACKED_SECONDS] >= BASE60_OVERFLOW: #  overflow seconds to minute
                     self.remembrance[TRACKED_MINUTES] += 1
@@ -103,10 +106,12 @@ class Screentime:
                 if self.remembrance[TRACKED_MINUTES] >= BASE60_OVERFLOW: # overflow minutes to hour
                     self.remembrance[TRACKED_HOURS] += 1
                     self.remembrance[TRACKED_MINUTES] = 0
-                if self.remembrance[M30_INTERVAL_TRACKER] >= BASE10_OVERFLOW: self.save_timekeeper() # overflow interval tracker for saving
+                if self.remembrance[M30_INTERVAL_TRACKER] >= BASE10_OVERFLOW: 
+                    self.save_timekeeper() # overflow interval tracker for saving
+                    self.remembrance[M30_INTERVAL_TRACKER] = 0
                 if self.debug: print(f'{self.remembrance[TRACKED_SECONDS]}s, {self.remembrance[TRACKED_MINUTES]}m, {self.remembrance[TRACKED_HOURS]}h') # just printin
                 time.sleep(1)
             except KeyboardInterrupt:
                 self.save_timekeeper()
-                sys.exit()
+                exit()
 Screentime()

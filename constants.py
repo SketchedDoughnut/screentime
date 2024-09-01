@@ -29,6 +29,7 @@ DECEMBER = 'december'
 DATA_FOLDERPATH = r'D:\\VScode\\screentime\\screentime-local'
 DATA_FILEPATH = f'{DATA_FOLDERPATH}\\data.json'
 DAYLOG_FILEPATH = f'{DATA_FOLDERPATH}\\daylog.json'
+EXIT_FILEPATH = f'{DATA_FOLDERPATH}\\exit.txt'
 
 START_TIMESTAMP = 'start timestamp'
 CURRENT_TIMESTAMP = 'current timestamp'
