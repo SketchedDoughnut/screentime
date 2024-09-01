@@ -1,3 +1,4 @@
+from os.path import dirname, abspath
 BASE60_OVERFLOW = 60
 BASE24_OVERFLOW = 24
 BASE31_OVERFLOW = 31
@@ -26,7 +27,7 @@ NOVEMBER = 'november'
 DECEMBER = 'december'
 
 # in the new new reform
-DATA_FOLDERPATH = r'D:\\VScode\\screentime\\screentime-local'
+DATA_FOLDERPATH = dirname(abspath(__file__))
 DATA_FILEPATH = f'{DATA_FOLDERPATH}\\data.json'
 DAYLOG_FILEPATH = f'{DATA_FOLDERPATH}\\daylog.json'
 EXIT_FILEPATH = f'{DATA_FOLDERPATH}\\exit.txt'

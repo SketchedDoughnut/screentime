@@ -1,0 +1,3 @@
+In order to set this up, all you have to do is.. run the file! 
+I have this set up using some BAT and VBS files to have this start up in the background on startup, and have it gracefully exit on shutdown of the computer.
+The graceful shutdown is by using the task scheduler to trigger exitProg.py, which initiates the shutdown process.
