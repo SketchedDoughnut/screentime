@@ -26,5 +26,14 @@ NOVEMBER = 'november'
 DECEMBER = 'december'
 
 # in the new new reform
-DATA_FOLDERPATH = 'screentime-local'
-DATA_FILEPATH = f'{DATA_FOLDERPATH}/data.json'
+DATA_FOLDERPATH = r'D:\\VScode\\screentime\\screentime-local'
+DATA_FILEPATH = f'{DATA_FOLDERPATH}\\data.json'
+DAYLOG_FILEPATH = f'{DATA_FOLDERPATH}\\daylog.json'
+
+START_TIMESTAMP = 'start timestamp'
+CURRENT_TIMESTAMP = 'current timestamp'
+TRACKED_SECONDS = 'tracked seconds'
+TRACKED_MINUTES = 'tracked minutes'
+TRACKED_HOURS = 'tracked hours'
+M30_INTERVAL_TRACKER = '30 minute interval tracker'
+CURRENT_WEEKDAY = 'current weekday'
