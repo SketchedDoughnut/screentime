@@ -12,7 +12,7 @@ from constants import *
 class Screentime:
     def __init__(self):
         ## set up variables
-        self.debug = False
+        self.debug = True
 
         # set up time tracker
         self.remembrance = {
@@ -86,13 +86,8 @@ class Screentime:
     def demise(self):
         while True:
             try:
-                if self.debug:
-                    if 1 != self.remembrance[CURRENT_WEEKDAY]: 
-                        self.save_daykeeper()
-                        exit()
-                else: 
-                    # if saved weekday not equal to current fetched weekday, run save daykeeper
-                    if datetime.datetime.weekday(datetime.datetime.now()) != self.remembrance[CURRENT_WEEKDAY]: self.save_daykeeper()
+                # if saved weekday not equal to current fetched weekday, run save daykeeper
+                if datetime.datetime.weekday(datetime.datetime.now()) != self.remembrance[CURRENT_WEEKDAY]: self.save_daykeeper()
                 # if the exit file exists, delete it then raise keyboardInterrupt
                 if os.path.exists(EXIT_FILEPATH):
                     os.remove(EXIT_FILEPATH)
@@ -109,7 +104,7 @@ class Screentime:
                 if self.remembrance[M30_INTERVAL_TRACKER] >= BASE1_OVERFLOW: # save every 5 minutes
                     self.remembrance[M30_INTERVAL_TRACKER] = 0 # reset interval counter
                     self.save_timekeeper() # save the timekeeper file to JSON
-                if self.debug: print(f'{self.remembrance[TRACKED_SECONDS]}s, {self.remembrance[TRACKED_MINUTES]}m, {self.remembrance[TRACKED_HOURS]}h') # just printin
+                if self.debug: print(f'{self.remembrance[TRACKED_SECONDS]}s, {self.remembrance[TRACKED_MINUTES]}m, {self.remembrance[TRACKED_HOURS]}h, {self.remembrance[CURRENT_WEEKDAY]}, {datetime.datetime.weekday(datetime.datetime.now())}') # just printin
                 time.sleep(1)
             except KeyboardInterrupt:
                 self.save_timekeeper()
