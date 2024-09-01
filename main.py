@@ -106,7 +106,7 @@ class Screentime:
                 if self.remembrance[TRACKED_MINUTES] >= BASE60_OVERFLOW: # overflow minutes to hour
                     self.remembrance[TRACKED_HOURS] += 1
                     self.remembrance[TRACKED_MINUTES] = 0
-                if self.remembrance[M30_INTERVAL_TRACKER] >= BASE5_OVERFLOW: # save every 5 minutes
+                if self.remembrance[M30_INTERVAL_TRACKER] >= BASE1_OVERFLOW: # save every 5 minutes
                     self.remembrance[M30_INTERVAL_TRACKER] = 0 # reset interval counter
                     self.save_timekeeper() # save the timekeeper file to JSON
                 if self.debug: print(f'{self.remembrance[TRACKED_SECONDS]}s, {self.remembrance[TRACKED_MINUTES]}m, {self.remembrance[TRACKED_HOURS]}h') # just printin
