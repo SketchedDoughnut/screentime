@@ -5,23 +5,14 @@ import os
 import json
 from sys import exit
 
+# files
 from constants import *
 
-f'''
-A NEW AND REFORMED FILE! THIS WILL LIKELY ALSO GO OUT OF DATE!
-
-Here is the NEW rundown for how this will work.
-
-ON START
-    - if DATA_FILEPATH does not exist
-        - that means this is the first start. Create the file (in DATA_FILEPATH), and log the current time (using self.get_timestamp())
-'''
-
-
+# main operating class
 class Screentime:
-    def __init__(self, debug: bool = False):
+    def __init__(self):
         ## set up variables
-        self.debug = debug
+        self.debug = False
 
         # set up time tracker
         self.remembrance = {
@@ -123,4 +114,4 @@ class Screentime:
             except KeyboardInterrupt:
                 self.save_timekeeper()
                 exit()
-Screentime()
+if __name__ == '__main__': Screentime()
