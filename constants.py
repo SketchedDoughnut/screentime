@@ -27,7 +27,7 @@ NOVEMBER = 'november'
 DECEMBER = 'december'
 
 # in the new new reform
-DATA_FOLDERPATH = dirname(abspath(__file__))
+DATA_FOLDERPATH = f'{dirname(abspath(__file__))}/screentime-local'
 DATA_FILEPATH = f'{DATA_FOLDERPATH}\\data.json'
 DAYLOG_FILEPATH = f'{DATA_FOLDERPATH}\\daylog.json'
 EXIT_FILEPATH = f'{DATA_FOLDERPATH}\\exit.txt'
