@@ -108,8 +108,8 @@ class Screentime:
                     self.remembrance[TRACKED_HOURS] += 1
                     self.remembrance[TRACKED_MINUTES] = 0
                 if self.remembrance[M30_INTERVAL_TRACKER] >= BASE5_OVERFLOW: 
-                    self.save_timekeeper() # overflow interval tracker for saving
                     self.remembrance[M30_INTERVAL_TRACKER] = 0
+                    self.save_timekeeper() # overflow interval tracker for saving
                 if self.debug: print(f'{self.remembrance[TRACKED_SECONDS]}s, {self.remembrance[TRACKED_MINUTES]}m, {self.remembrance[TRACKED_HOURS]}h') # just printin
                 time.sleep(1)
             except KeyboardInterrupt:
