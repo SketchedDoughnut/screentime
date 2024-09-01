@@ -84,6 +84,7 @@ class Screentime:
         daykeeper = self.loadJSON(DAYLOG_FILEPATH)
         daykeeper[self.remembrance[CURRENT_TIMESTAMP]] = self.remembrance
         self.saveJSON(daykeeper, DAYLOG_FILEPATH)
+        self.remembrance[CURRENT_WEEKDAY] = datetime.datetime.weekday(datetime.datetime.now())
         self.reset_timekeeper()
 
     def demise(self):
@@ -106,7 +107,7 @@ class Screentime:
                 if self.remembrance[TRACKED_MINUTES] >= BASE60_OVERFLOW: # overflow minutes to hour
                     self.remembrance[TRACKED_HOURS] += 1
                     self.remembrance[TRACKED_MINUTES] = 0
-                if self.remembrance[M30_INTERVAL_TRACKER] >= BASE10_OVERFLOW: 
+                if self.remembrance[M30_INTERVAL_TRACKER] >= BASE5_OVERFLOW: 
                     self.save_timekeeper() # overflow interval tracker for saving
                     self.remembrance[M30_INTERVAL_TRACKER] = 0
                 if self.debug: print(f'{self.remembrance[TRACKED_SECONDS]}s, {self.remembrance[TRACKED_MINUTES]}m, {self.remembrance[TRACKED_HOURS]}h') # just printin

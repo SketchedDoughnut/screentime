@@ -38,3 +38,5 @@ TRACKED_MINUTES = 'tracked minutes'
 TRACKED_HOURS = 'tracked hours'
 M30_INTERVAL_TRACKER = '30 minute interval tracker'
 CURRENT_WEEKDAY = 'current weekday'
+
+BASE5_OVERFLOW = 5
