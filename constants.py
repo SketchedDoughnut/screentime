@@ -5,6 +5,7 @@ BASE31_OVERFLOW = 31
 BASE12_OVERFLOW = 12
 BASE10_OVERFLOW = 10
 BASE5_OVERFLOW = 5
+BASE1_OVERFLOW = 1
 
 
 DATA_FOLDERPATH = f'{dirname(abspath(__file__))}/screentime-local'
