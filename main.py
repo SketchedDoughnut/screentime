@@ -10,10 +10,10 @@ from constants import *
 
 # main operating class
 class Screentime:
-    def __init__(self, MinuteSaveInterval: int = 1):
+    def __init__(self, SecondSaveInterval: int = 60):
         ## set up variables
         self.debug = True
-        self.MinuteSaveInterval = MinuteSaveInterval
+        self.SecondSaveInterval = SecondSaveInterval
 
         # set up time tracker
         self.remembrance = {
@@ -22,7 +22,7 @@ class Screentime:
             TRACKED_SECONDS: 0, # tracks seconds past - usually set to zero besides when continuing on from previous values
             TRACKED_MINUTES: 0, # tracks minutes past
             TRACKED_HOURS: 0, # tracked hours pasted
-            M30_INTERVAL_TRACKER: 0, # interval counter for saving
+            SECOND_INTERVAL_TRACKER: 0, # interval counter for saving
             CURRENT_WEEKDAY: datetime.datetime.weekday(datetime.datetime.now()) # tracks the current weekday, responsible for managing day overolls
         }
 
@@ -95,15 +95,15 @@ class Screentime:
                     raise KeyboardInterrupt
                 # increase times, do rollovers
                 self.remembrance[TRACKED_SECONDS] += 1
+                self.remembrance[SECOND_INTERVAL_TRACKER] += 1
                 if self.remembrance[TRACKED_SECONDS] >= BASE60_OVERFLOW: #  overflow seconds to minute
                     self.remembrance[TRACKED_MINUTES] += 1
-                    self.remembrance[M30_INTERVAL_TRACKER] += 1
                     self.remembrance[TRACKED_SECONDS] = 0
                 if self.remembrance[TRACKED_MINUTES] >= BASE60_OVERFLOW: # overflow minutes to hour
                     self.remembrance[TRACKED_HOURS] += 1
                     self.remembrance[TRACKED_MINUTES] = 0
-                if self.remembrance[M30_INTERVAL_TRACKER] >= self.MinuteSaveInterval: # save every 5 minutes
-                    self.remembrance[M30_INTERVAL_TRACKER] = 0 # reset interval counter
+                if self.remembrance[SECOND_INTERVAL_TRACKER] >= self.SecondSaveInterval: # save every (x) seconds
+                    self.remembrance[SECOND_INTERVAL_TRACKER] = 0 # reset interval counter
                     self.save_timekeeper() # save the timekeeper file to JSON
                 if self.debug: print(f'{self.remembrance[TRACKED_SECONDS]}s, {self.remembrance[TRACKED_MINUTES]}m, {self.remembrance[TRACKED_HOURS]}h, {self.remembrance[CURRENT_WEEKDAY]}, {datetime.datetime.weekday(datetime.datetime.now())}') # just printin
                 time.sleep(1)

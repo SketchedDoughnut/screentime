@@ -18,7 +18,7 @@ CURRENT_TIMESTAMP = 'current timestamp'
 TRACKED_SECONDS = 'tracked seconds'
 TRACKED_MINUTES = 'tracked minutes'
 TRACKED_HOURS = 'tracked hours'
-M30_INTERVAL_TRACKER = '30 minute interval tracker'
+SECOND_INTERVAL_TRACKER = '30 minute interval tracker'
 CURRENT_WEEKDAY = 'current weekday'
 
 # SUNDAY = 'sunday'
