@@ -13,3 +13,9 @@ The current features are:
 - logging data daily and refreshing values
 - logging time data every 5 minutes
 - very simple
+
+# usage
+To start, just call the class `Screentime()`. This will create a local folder, and files within. <br>
+To gracefully shut down the program, just run the file `exitProg.py`. <br>
+Logs of each day can be accessed in `screentime-local/daylog.json` <br>
+Current day information (logged every minute) can be accessed in `screentime-local/day.json` <br>
